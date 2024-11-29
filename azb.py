@@ -50,7 +50,7 @@ def filter_paths_in_directory(paths, directory, show_subfolder_contents):
             and (f.lstrip(directory).rstrip('/').count('/') == 0 or show_subfolder_contents == "1")]
 
 def parent_path(my_path):
-    # gives the parent path to go to after ⇧↵ — with a particular form for short paths
+    # gives the parent path to go to after ⇧↩ — with a particular form for short paths
     my_path = my_path.rstrip('/')
     parts = my_path.split('/')
     if len(parts)<=1:
@@ -65,7 +65,7 @@ For the following three add_to_JSON functions:
  zip_file = the processed .zip file 
  current_directory = the folder that is currently under view
  my_path = the path for the file or folder under view (which may be in a subfolder)
- return_to_unzip = for a file, indicates if ↵ should directly extract it
+ return_to_unzip = for a file, indicates if ↩ should directly extract it
 '''
 
 def add_folder_to_JSON(json_list, my_path, current_directory):
@@ -76,7 +76,7 @@ def add_folder_to_JSON(json_list, my_path, current_directory):
     icon = FOLDER_ICON
     variables = item_variables(my_path, do_extraction=False) 
     parent_directory = parent_path(current_directory)
-    hint="Hit ↵ to open the folder, ⇧↵ to go to the parent folder, ⌘↵ to unzip"
+    hint="Hit ↩ to open the folder, ⇧↩ to go to the parent folder, ⌘↩ to unzip"
 
     new_item =  base_item(title, subtitle, variables, icon, is_valid=True)
 
@@ -109,9 +109,9 @@ def add_file_to_JSON(json_list, my_path, current_directory, return_to_unzip):
     variables = item_variables(current_directory, do_extraction, my_path),
     parent_directory = parent_path(current_directory)
     if return_to_unzip:
-        hint="Hit ⇧↵ to go to the parent folder, ↵ or ⌘↵ to unzip"
+        hint="Hit ⇧↩ to go to the parent folder, ↩ or ⌘↩ to unzip"
     else:
-        hint="Hit ⇧↵ to go to the parent folder, ⌘↵ to unzip"
+        hint="Hit ⇧↩ to go to the parent folder, ⌘↩ to unzip"
     
     new_item =  base_item(title, subtitle, variables, icon, is_valid=do_extraction)
 
@@ -135,7 +135,7 @@ def JSON_if_empty_directory(json_list, current_directory):
     # JSON entry if the considered path corresponds to an empty directory
 
     title = "This directory is empty"
-    subtitle = "Hit ⇧↵ to go to the parent folder"
+    subtitle = "Hit ⇧↩ to go to the parent folder"
     variables = item_variables(current_directory, False)
     icon = "empty_set.png"
     parent_directory = parent_path(current_directory)
