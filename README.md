@@ -15,13 +15,13 @@ Alzibro in an Alfred 5 workflow that allows browsing a ZIP file without fully op
 
 then
 
-* Navigate with ↑, ↓, ↵ (open a folder) and ⇧↵ (go backwards in the hierarchy),
+* Navigate with ↑, ↓, ↩ (open a folder) and ⇧↩ (go backwards in the hierarchy),
 <center><img src="./pics/Capture3.png" width="700"><center>
 
 * Possibly search by name,
 <center><img src="./pics/Capture4.png" width="700"><center>
 
-* Unzip a particular file/folder with ⌘↵.
+* Unzip a particular file/folder with ⌘↩.
 
 ## Remarks
 
