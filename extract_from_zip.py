@@ -44,6 +44,7 @@ def extract_folder_from_zip(zip_file, to_extract, next_directory):
             for file in files_to_extract:
                 my_dir = os.path.dirname(file.rstrip('/'))
                 zip_ref.extract(file, temp_dir + '/' + zip_name + '/')
+                
                 # If there was associated metadata, retrieve them            
                 if my_dir == "":
                     macosx_weird_file = '__MACOSX/'+ my_dir \
@@ -59,12 +60,18 @@ def extract_folder_from_zip(zip_file, to_extract, next_directory):
             # If there was associated metadata, tries to incorporate them
             if os.path.exists(temp_dir + '/__MACOSX/'):
                 extracted_archive_path = os.path.join(temp_dir, zip_name)
-                shell_command = 'rsync -a ' + extracted_archive_path + '/ ' + temp_dir + '/__MACOSX/'
-                subprocess.run(shell_command, cwd=temp_dir, shell=True, check=True)
-                shell_command = 'dot_clean -v --keep=dotbar ' + extracted_archive_path + ' __MACOSX/'
-                subprocess.run(shell_command, cwd=temp_dir, shell=True, check=True)
-                extraction_folder = temp_dir + '/__MACOSX/'
+                try:
+                    shell_command = 'rsync -a ' + extracted_archive_path + '/ ' + temp_dir + '/__MACOSX/'
+                    subprocess.run(shell_command, cwd=temp_dir, shell=True, check=True)
+                    shell_command = 'dot_clean -v --keep=dotbar ' + extracted_archive_path + ' __MACOSX/'
+                    subprocess.run(shell_command, cwd=temp_dir, shell=True, check=True)
+                    extraction_folder = temp_dir + '/__MACOSX/'
+                    metadata_retrival_failed = False
+                except:
+                    metadata_retrival_failed = True
+                    extraction_folder = os.path.join(temp_dir, zip_name)    
             else:
+                metadata_retrival_failed = False
                 extraction_folder = os.path.join(temp_dir, zip_name)
 
             extraction_path = os.path.join(extraction_folder, to_extract)
@@ -113,6 +120,9 @@ def extract_folder_from_zip(zip_file, to_extract, next_directory):
                 else:
                     comment = f"'{base_extraction_name}' existed in destination folder and was " \
                         f"extracted from '{zip_name}.zip' as '{new_extraction_name}'."
+                
+                if metadata_retrival_failed: comment = comment + " However metadata could not be retrieved."
+
                 notify_and_reveal(comment, next_directory, new_extraction_name, destination_folder, zip_file)
 
             except Exception as e:
