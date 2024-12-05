@@ -120,9 +120,10 @@ def add_file_to_JSON(json_list, my_path, current_directory, return_to_unzip):
     enter_mods("shift", f"← Go to the parent folder", variables, True, my_mods)
     variables = item_variables(current_directory, do_extraction=True, file_to_extract=my_path)
     enter_mods("cmd", f"Extract this file", variables, True, my_mods)
+    variables = item_variables(current_directory, do_extraction=False, file_to_extract=my_path)
+    enter_mods("ctrl", f"Take a Quicklook at this file", variables, True, my_mods)
     variables = item_variables("", do_extraction=False)
     enter_mods("alt", hint, variables, False, my_mods)
-    enter_mods("ctrl", hint, variables, False, my_mods)
 
     new_item.update({"mods" :my_mods})
 

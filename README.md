@@ -21,9 +21,12 @@ then
 * Possibly search by name,
 <center><img src="./pics/Capture4.png" width="700"><center>
 
-* Unzip a particular file/folder with ⌘↩.
+* Unzip a particular file/folder with ⌘↩,
+
+* Take a Quicklook at a file with ⌃↩.
 
 ## Remarks
 
 * Alzibro does not modify the ZIP file in any way,
-* It tries to recover macos' metadata (tags, etc.) together with the file.
+* It tries to recover macos' metadata (tags, etc.) together with the file,
+* For the Quicklook view, it uses [pmeinhardt](https://github.com/pmeinhardt)'s [ql command](https://github.com/pmeinhardt/ql) distributed under the MIT License.
