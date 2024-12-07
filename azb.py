@@ -44,10 +44,19 @@ def filter_files_only(paths):
     return [f for f in paths if not f.endswith('/')]
 
 def filter_paths_in_directory(paths, directory, show_subfolder_contents):
-    return [f for f in paths 
-            if f.startswith(directory)
-            and f != directory
-            and (f.lstrip(directory).rstrip('/').count('/') == 0 or show_subfolder_contents == "1")]
+    filtered_paths= [f for f in paths 
+        if f.startswith(directory)
+        and f != directory
+        and (f.lstrip(directory).rstrip('/').count('/') == 0 or show_subfolder_contents == "1")
+    ]
+    # Some ZIP files have files the main directory not listed in the namelist
+    if directory == "" and not filtered_paths:
+        filtered_paths= [f for f in paths 
+        if f.startswith(directory)
+        and f != directory
+        and (f.lstrip(directory).rstrip('/').count('/') == 1 or show_subfolder_contents == "1")
+    ]    
+    return filtered_paths
 
 def parent_path(my_path):
     # gives the parent path to go to after ⇧↩ — with a particular form for short paths
@@ -190,6 +199,7 @@ def read_and_cache_zipfile(zip_file, cache_folder, cache_file):
     # and returns a list of these paths
 
     paths = list_paths(zip_file)
+        
     if not os.path.isdir(cache_folder):
         try:
             os.mkdir(cache_folder)
@@ -223,11 +233,11 @@ def main():
     show_subfolder_contents = os.getenv('show_subfolder_contents')
     cache_folder = os.getenv('alfred_workflow_cache')
     cache_file = os.path.join(cache_folder, 'alzibro_cache')
-    clear_cache = os.getenv('clear_cache')
+    clear_cache = os.getenv('clear_cache')   
 
     # Gathering the paths from either the zip file or the cache
     if starting=="1":
-        paths = read_and_cache_zipfile(zip_file, cache_folder, cache_file)
+        paths = read_and_cache_zipfile(zip_file, cache_folder, cache_file)     
     else:
         try:
             with open(cache_file,'r') as file:

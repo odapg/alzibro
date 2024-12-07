@@ -23,7 +23,7 @@ then
 
 * Unzip a particular file/folder with ⌘↩,
 
-* Take a Quicklook at a file with ⌃↩.
+* Have a Quicklook at a file with ⌃↩.
 
 ## Remarks
 
