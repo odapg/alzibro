@@ -29,4 +29,3 @@ then
 
 * Alzibro does not modify the ZIP file in any way,
 * It tries to recover macos' metadata (tags, etc.) together with the file,
-* For the Quicklook view, it uses [pmeinhardt](https://github.com/pmeinhardt)'s [ql command](https://github.com/pmeinhardt/ql) distributed under the MIT License.
