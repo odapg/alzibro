@@ -5,7 +5,6 @@ import zipfile
 import os
 import json
 import shutil
-import subprocess
 
 from alfred import alfred_error_message, outcome_JSON, selection_error_message
 
